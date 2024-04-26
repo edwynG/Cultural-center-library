@@ -1,6 +1,7 @@
 import axios from "axios";
 const instance = axios.create({
   baseURL: import.meta.env.VITE_API_REST,
+  responseEncoding: 'utf8'
 });
 
 export async function getAxios(url = "") {
@@ -8,8 +9,7 @@ export async function getAxios(url = "") {
     let { data } = await instance(url);
     return data;
   } catch (error) {
-    let { data } = error.response;
-     throw(data);
+     throw(error.message);
   }
 }
 getAxios();
