@@ -65,14 +65,26 @@ function CardBook(props) {
           <Typography variant="body2" color="text.secondary">
             {props.data.observations}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            display={props.data.editorial == null ? "none" : " "}
+          >
             <b>Autor:</b> {props.data.author}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            <b>Editorial:</b> {props.data.editorial}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            display={props.data.year_edition == null ? "none" : " "}
+          >
             <b>Año de edición:</b> {props.data.year_edition}
+          </Typography>
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            display={props.data.editorial == null ? "none" : " "}
+          >
+            <b>Editorial:</b> {props.data.editorial}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
@@ -91,31 +103,19 @@ function CardBook(props) {
             <Typography
               variant="body2"
               color="text.secondary"
-              display={props.data.city == null ? "none" : " "}
-            >
-              <b>Ciudad:</b> {props.data.city}
-            </Typography>
-            <Typography
-              variant="body2"
-              color="text.secondary"
-              display={props.data.location == null ? "none" : " "}
-            >
-              <b>Locación:</b> {props.data.location}
-            </Typography>
-            <Typography
-              variant="body2"
-              color="text.secondary"
               display={props.data.isbn_issn == null ? "none" : " "}
             >
-              <b>ISBN_ISSN:</b> {props.data.isbn_issn}
+              <b>ISBN-ISSN:</b> {props.data.isbn_issn}
             </Typography>
+
             <Typography
               variant="body2"
               color="text.secondary"
-              display={props.data.register == null ? "none" : " "}
+              display={props.data.page == null ? "none" : " "}
             >
-              <b>Registro:</b> {props.data.register}
+              <b>Numero de pagina:</b> {props.data.page}
             </Typography>
+
             <Typography
               variant="body2"
               color="text.secondary"
@@ -123,6 +123,15 @@ function CardBook(props) {
             >
               <b>Colección:</b> {props.data.colection}
             </Typography>
+
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              display={props.data.city == null ? "none" : " "}
+            >
+              <b>Ciudad:</b> {props.data.city}
+            </Typography>
+
             <Typography
               variant="body2"
               color="text.secondary"
@@ -130,6 +139,7 @@ function CardBook(props) {
             >
               <b>Ejemplares:</b> {props.data.ejempla}
             </Typography>
+
             <Typography
               variant="body2"
               color="text.secondary"
@@ -137,6 +147,7 @@ function CardBook(props) {
             >
               <b>Soporte</b>: {props.data.support}
             </Typography>
+
             <Typography
               variant="body2"
               color="text.secondary"
@@ -144,6 +155,7 @@ function CardBook(props) {
             >
               <b>Tipo de Soporte</b>: {props.data.type_support}
             </Typography>
+
             <Typography
               variant="body2"
               color="text.secondary"
@@ -151,6 +163,23 @@ function CardBook(props) {
             >
               <b>Materias</b>: {props.data.materia}
             </Typography>
+
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              display={props.data.location == null ? "none" : " "}
+            >
+              <b>Ubicación:</b> {props.data.location}
+            </Typography>
+
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              display={props.data.register == null ? "none" : " "}
+            >
+              <b>Registro:</b> {props.data.register}
+            </Typography>
+
           </CardContent>
         </Collapse>
       </Card>

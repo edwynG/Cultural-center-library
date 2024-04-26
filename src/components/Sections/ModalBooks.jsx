@@ -17,12 +17,11 @@ function ModalBooks() {
   const classes = {
     containerCardBook: {
       padding: 1,
-      maxWidth:1200,
-      margin:"auto !important",
+      maxWidth: 1200,
+      margin: "auto !important",
       gap: 2,
-      paddingTop:6,
-      paddingBottom:{xs:10,sm:4},
-    
+      paddingTop: 6,
+      paddingBottom: { xs: 10, sm: 4 },
     },
     containerCollectionsText: {
       textAlign: "center",
@@ -60,27 +59,25 @@ function ModalBooks() {
       );
     });
     setDataBooks(arr);
-    setListCard(arr)
+    setListCard(arr);
   };
-
 
   useLayoutEffect(() => {
     if (dataBooks.length <= 0) {
-      setCollection(setting(decodeURIComponent(location.pathname)));
-      getAxios(setting(location.pathname)).then((res) => {
+      const path = setting(decodeURIComponent(location.pathname));
+      setCollection(path);
+      getAxios(path).then((res) => {
         genericList(res.result);
       });
     }
     if (dataBooks.length > 0) {
-      setTimeout(() => {
-        setLoanding(false);
-      }, 2000);
+      setLoanding(false);
     }
   }, [dataBooks]);
 
   return (
     <>
-      <AppbarDesing comparison={dataBooks} coincidences={setListCard}/>
+      <AppbarDesing comparison={dataBooks} coincidences={setListCard} />
       <Stack spacing={3} paddingTop={1}>
         <Stack sx={classes.containerCollectionsText}>
           <Typography variant="h6" sx={classes.subTitle}>
@@ -90,7 +87,7 @@ function ModalBooks() {
             {capitalize(collection)}
           </Typography>
         </Stack>
-        <Stack  sx={classes.containerCardBook}>
+        <Stack sx={classes.containerCardBook}>
           {loanding && (
             <Box sx={classes.progress}>
               <CircularProgress color="secondary" />
@@ -99,7 +96,7 @@ function ModalBooks() {
           {!loanding && listCard}
         </Stack>
       </Stack>
-      <ArrowTop/>
+      <ArrowTop />
     </>
   );
 }

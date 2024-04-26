@@ -23,7 +23,6 @@ function ModalCollections() {
     box: {},
     containerCollections: {
       paddingBottom: 5,
-
     },
     containerCollectionsText: {
       textAlign: "center",
@@ -43,7 +42,7 @@ function ModalCollections() {
       gridTemplateColumns: "repeat(auto-fit,minmax(275px,275px))",
       gap: 2,
       paddingTop: 6,
-      paddingBottom:{xs:10,sm:1},
+      paddingBottom: { xs: 10, sm: 1 },
     },
     progress: {
       height: 200,
@@ -73,8 +72,8 @@ function ModalCollections() {
         </Grid>
       );
     });
-    setJsonData(arr)
-    setListCard(arr)
+    setJsonData(arr);
+    setListCard(arr);
   };
 
   useEffect(() => {
@@ -82,15 +81,13 @@ function ModalCollections() {
       getAxios()
         .then((data) => {
           createCard(data.result);
-          
         })
         .catch((err) => {
-          console.log(err);
           setError(true);
         });
     }
     if (jsonData.length > 0) {
-      setTimeout(() => setLoanding(false), 2000);
+      setLoanding(false);
     }
   }, [jsonData]);
   return (
@@ -111,9 +108,8 @@ function ModalCollections() {
               <CircularProgress color="secondary" />
             </Box>
           )}
-          {!loanding && !errorData &&  listCard }
-          {errorData &&  <>{"Lo sentimo hubo un error de conexión"}</>}
-
+          {!loanding && !errorData && listCard}
+          {errorData && <>{"Lo sentimo hubo un error de conexión"}</>}
         </Grid>
       </Container>
       <ArrowTop />

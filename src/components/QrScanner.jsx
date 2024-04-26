@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import React, { useEffect, useLayoutEffect } from "react";
+import React, { useEffect } from "react";
 import { useContext } from "react";
 import { useState } from "react";
 import { MdFlipCameraIos } from "react-icons/md";
@@ -14,7 +14,6 @@ const QrScanner = ({ scan = false }) => {
     camera,
     setCamera,
     offScannerQr,
-    setScannerStatus,
     setTextWarningScan,
   } = useContext(Context);
   const anonimo = '"La lectura es el alimento del alma." - Anónimo';
@@ -85,7 +84,7 @@ const QrScanner = ({ scan = false }) => {
             }
           })
           .catch(function (e) {
-            console.error(e);
+            console.error("Hubo un error reintente");
             setTextWarningScan("Hubo un error reintente");
           });
       })

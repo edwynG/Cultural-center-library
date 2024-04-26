@@ -1,5 +1,4 @@
 import axios from "axios";
-// toke pixels API IMGsqyIMfIKwyo39FEfboZ16qBtwVHaRD1UCJIKfojxTiY6ir7Veh2Ek
 const instance = axios.create({
   baseURL: import.meta.env.VITE_API_REST,
 });
