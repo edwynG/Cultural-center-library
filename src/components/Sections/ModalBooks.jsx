@@ -66,6 +66,7 @@ function ModalBooks() {
     if (dataBooks.length <= 0) {
       const path = setting(decodeURIComponent(location.pathname));
       setCollection(path);
+      console.log(`Accediste a la colección de ${path}`)
       getAxios(path).then((res) => {
         genericList(res.result);
       });
