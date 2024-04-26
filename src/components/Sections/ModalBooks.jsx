@@ -65,7 +65,7 @@ function ModalBooks() {
   useLayoutEffect(() => {
     if (dataBooks.length <= 0) {
       const path = setting(decodeURIComponent(location.pathname));
-      setCollection(path);
+      setCollection(capitalize(path));
       getAxios(`/${path}`).then((res) => {
         genericList(res.result);
       }).catch((err)=>{
@@ -87,7 +87,7 @@ function ModalBooks() {
             Elija su favorito
           </Typography>
           <Typography variant="h3" sx={classes.title}>
-            {capitalize(collection)}
+            {collection}
           </Typography>
         </Stack>
         <Stack sx={classes.containerCardBook}>
