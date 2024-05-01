@@ -22,7 +22,10 @@ concurrency:
 
 jobs:
   # Single deploy job since we're just deploying
-  deploy:
+  build:
+  env:
+    VITE_API_REST:${{secrets.VITE_API_REST}}
+    VITE_TOKE_PIXELS:${{secrets.VITE_TOKE_PIXELS}}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
