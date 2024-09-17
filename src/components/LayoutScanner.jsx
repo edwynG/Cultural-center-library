@@ -36,6 +36,7 @@ function LayoutScanner() {
       textAlign: "justify",
     },
   };
+  
 
   return (
     <>

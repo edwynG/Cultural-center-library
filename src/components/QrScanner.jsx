@@ -6,9 +6,11 @@ import { MdFlipCameraIos } from "react-icons/md";
 import QRCode from "react-qr-code";
 import { Context } from "../context/Context";
 
+var scanner = undefined;
+
 const QrScanner = ({ scan = false }) => {
-  const [device, setDevice] = useState(false);
   const [great, setGreat] = useState(false);
+
   const {
     setScannerResult,
     camera,
@@ -32,8 +34,6 @@ const QrScanner = ({ scan = false }) => {
       width: 300,
       height: 300,
       transform: "scaleX(1) !important",
-  
-
     },
     containerAsserts: {
       position: "absolute",
@@ -53,14 +53,13 @@ const QrScanner = ({ scan = false }) => {
       fill: great ? "red" : "#ffff",
     },
   };
-
-  const onScannerQR = (id = null, search = false) => {
-    //Permite escanear el QR https://rawgit.com/schmich/instascan-builds/master/instascan.min.js
-    let scanner = new Instascan.Scanner({
+  //Permite escanear el QR https://rawgit.com/schmich/instascan-builds/master/instascan.min.js
+  const initScanner = () => {
+    const scanner = new Instascan.Scanner({
       video: document.querySelector("#preview"),
     });
+
     scanner.addListener("scan", function (result) {
-      offScannerQr();
       setGreat(true);
       setTimeout(() => {
         setScannerResult(result);
@@ -69,6 +68,11 @@ const QrScanner = ({ scan = false }) => {
       }, 1000);
     });
 
+    return scanner;
+  };
+
+  const onScannerQR = (index = null) => {
+    scanner = initScanner();
     navigator.mediaDevices
       .getUserMedia({ video: true })
       .then(function (e) {
@@ -76,8 +80,18 @@ const QrScanner = ({ scan = false }) => {
           .then(function (cameras) {
             if (cameras.length > 0) {
               setCamera(cameras);
-              let can = cameras.find((can) => can.id == id || search);
-              scanner.start(can);
+
+              if (index != null) {
+                scanner.start(cameras[index]);
+                return;
+              }
+
+              const type = "front";
+              let root = cameras.find((device) =>
+                device.name.toLowerCase().includes(type)
+              );
+              root = root != undefined ? root : cameras[0];
+              scanner.start(root);
             } else {
               console.error("No cameras found.");
               setTextWarningScan("No se encontro ninguna cámara");
@@ -96,30 +110,33 @@ const QrScanner = ({ scan = false }) => {
       });
   };
 
-  const selectCamere = (select = false) => {
-    if (camera.length <= 1) {
-      onScannerQR(0, true);
-      return;
+  const changeCamere = () => {
+    try {
+      let currentCameraIndex = camera.findIndex(
+        (element) => element.id === scanner._camera.id
+      );
+      const nextCameraIndex = (currentCameraIndex + 1) % camera.length; // Cambia a la siguiente cámara
+
+      offScannerQr();
+      scanner.stop();
+      scanner = null;
+      onScannerQR(nextCameraIndex);
+    } catch (error) {
+      console.error("Problema al cambiar la camara.");
     }
-    const type = select ? "back" : "front";
-    const deviceID = camera.find((device) =>
-      device.name.toLowerCase().includes(type)
-    );
-    offScannerQr();
-    onScannerQR(deviceID.id);
-    setDevice(!device);
   };
+
   useEffect(() => {
-    if (scan == false) {
+    if (!scan) {
       console.warn("Off camere");
       setTextWarningScan("cámara apagada");
       offScannerQr();
+      scanner = null;
     } else {
       console.warn("On camere");
       setTextWarningScan("cámara encendida");
-      selectCamere(true);
+      onScannerQR();
     }
-    return () => offScannerQr();
   }, [scan]);
 
   return (
@@ -131,7 +148,7 @@ const QrScanner = ({ scan = false }) => {
             <MdFlipCameraIos
               size={40}
               style={classes.iconStyle}
-              onClick={() => selectCamere(!device)}
+              onClick={() => changeCamere()}
             />
           ) : (
             <QRCode value={anonimo} sx={classes.QrStyle} />
