@@ -15,9 +15,9 @@ function App() {
   return (
    <>
     <Routes>
-      <Route path="/" element={<ModalScanner/>}/>
-      <Route path="/Collections" element={<ModalCollections/>}/>  
-      <Route path={"/Collections/" + pathBook } element={<ModalBooks/>}/>
+      {/* <Route path="/" element={<ModalScanner/>}/> */}
+      <Route path="/" element={<ModalCollections/>}/>  
+      <Route path={ "/"+ pathBook } element={<ModalBooks/>}/>
     </Routes>
    </>
   );

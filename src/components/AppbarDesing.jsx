@@ -69,7 +69,8 @@ import { Link } from "react-router-dom";
         return component;
       }
     });
-    coincidences(arr)
+    
+    coincidences(arr.length == 0?"No se encontraron coincidencias":arr)
   };
   return (
     <AppBar
@@ -86,7 +87,7 @@ import { Link } from "react-router-dom";
         }}
       >
         <Box component="div">
-          <Link to="/Collections">
+          <Link to="/"> {/*"Congifurar si se cambia la ruta principal"*/}
             <Tooltip title="Colección">
               <IconButton>
                 <HiHomeModern size={30} fill="#111" />
