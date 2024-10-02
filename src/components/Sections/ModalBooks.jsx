@@ -88,6 +88,7 @@ function ModalBooks() {
       })
       .catch((err) => {
         console.info("Pagina no encontrada");
+        setStopErrorFound(true);
       });
     if (dataBooks.length <= 0) {
       setCollection(name);
