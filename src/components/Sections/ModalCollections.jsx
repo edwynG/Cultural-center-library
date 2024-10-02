@@ -60,7 +60,7 @@ function ModalCollections() {
             onClick={() => {
               setTimeout(() => {
                 setPathBook(obj.sheet);
-                navigate("/Collections/" + obj.sheet);
+                navigate( "/"+ obj.sheet);
               }, 1000);
             }}
           >
